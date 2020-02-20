@@ -2,6 +2,7 @@ package hu.me.krz.haladojava;
 
 public final class Planet {
 
+	
 	private long position;
 	private long radius;
 	private String name;

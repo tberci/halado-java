@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+ <meta charset="UTF-8">
+ <title>Calculator</title>
+ 
+ <style>
+ 	body{
+ 	background-color:yellow;x
+ 	font-size:36px;
+ 	}
+ 	span{
+ 	background-color:white;
+ 	font-size:36px;
+ 	}
+ 	
+ </style>
+</head>
+<body>   
+
+<h1>Calculator</h1>
+
+
+<form action="/calculator" method="post" th:object="${dto}">
+<input type="number" th:field="*{x}" /> első szám:  <br>
+<input type="number" th:field="*{y}" />második szám:<br>
+   
+<br>
+    <input type="submit" value="+" name ="sum"/> 
+    <input type="submit" value="-" name ="substract"/> 
+    <input type="submit" value="*" name ="multiply"/> 
+    <input type="submit" value="/" name ="divide"/> 
+   
+</form>
+
+Végeredmény:<span th:text="${result}"></span>
+
+</body>
+</html>

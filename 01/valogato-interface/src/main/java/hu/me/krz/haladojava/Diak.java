@@ -13,9 +13,14 @@ public class Diak extends Szemely implements Valogato {
 	public boolean joAlanyE() {
 		
 		
-		if(this.puska == 0 )
-		return true;
-		return false;
+		if(this.puska == 0 ) {
+			
+			return true;
+		}else {
+			return false;
+		}
+		
+		
 	}
 
 	@Override

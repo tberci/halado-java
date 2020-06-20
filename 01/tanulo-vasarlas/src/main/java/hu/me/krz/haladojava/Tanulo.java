@@ -25,15 +25,15 @@ public class Tanulo {
 		public Tanulo(String nev, int penz, int tanulok) {
 			super();
 			this.nev = nev;
-			this.penz = penz;
-			this.tanulok = tanulok;
+			Tanulo.penz = penz;
+			Tanulo.tanulok = tanulok;
 		}
 
 
 
 		public Tanulo(String nev) {
 			this(nev, penz, tanulok);
-			this.penz = 10000;
+			Tanulo.penz = 10000;
 			this.nev = nev;
 		}
 

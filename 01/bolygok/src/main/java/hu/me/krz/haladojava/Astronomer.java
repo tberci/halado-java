@@ -1,23 +1,22 @@
 package hu.me.krz.haladojava;
 
 import java.util.List;
-import java.util.Random;
 
 public class Astronomer {
 
 private String name;
 	
-	private List<Planet> DiscoveredPLanets;
+	private List<Planet> discoveredPlanets;
 	
 	
 	public Astronomer(String name) {
 		super();
 		this.name = name;
-		this.DiscoveredPLanets = DiscoveredPLanets;
+		
 	}
 
 	public List<Planet> getDiscoveredPLanets() {
-		return DiscoveredPLanets;
+		return discoveredPlanets;
 	}
 
 	public void observeTheSky(){
@@ -33,7 +32,7 @@ private String name;
 			
 			int radius = 0;
 			int position = (int) (point.getX()+i*10);
-			String name = astronomer.name + i*10 ;
+			 name = astronomer.name + i*10 ;
 			
 			double random = Math.random() * 100 + 1;
 			

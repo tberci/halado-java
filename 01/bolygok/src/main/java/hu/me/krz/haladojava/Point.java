@@ -3,7 +3,9 @@ package hu.me.krz.haladojava;
 public class Point {
 
 	
-	private final long  x,y,z;
+	private final long x;
+	private final long y;
+	private final long z;
 
 	public Point(long x, long y, long z) {
 		

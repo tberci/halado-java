@@ -13,9 +13,13 @@ public class Tanar extends Szemely implements Valogato {
 	@Override
 	public boolean joAlanyE() {
 		
-		if(this.getKor() < 30 && atlagVizsgajegy > 4)
-		return true;
-		return false;
+		if(this.getKor() < 30 && atlagVizsgajegy > 4) {
+			return true;
+		}else {
+				return false;
+		}
+		
+	
 	}
 
 	@Override

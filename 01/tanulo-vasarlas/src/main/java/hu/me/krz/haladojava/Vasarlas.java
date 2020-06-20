@@ -22,6 +22,8 @@ public class Vasarlas {
 		tanulok.add(tanulo5);
 		
 		
+		
+		
 		//tanulok kiírása
 		 for (int i = 0; i < tanulok.size(); i++) {
 		      System.out.println(tanulok.get(i));
@@ -54,7 +56,7 @@ public class Vasarlas {
 		 for(int i = 0; i < 6; i++) {
 			 
 			 
-			int penzek[]=  {penz1,penz2,penz3,penz4,penz5};
+			int[] penzek=  {penz1,penz2,penz3,penz4,penz5};
 			penz1 = penz1 - tanulo1.fogyasztas(1500);
 			penz2 = penz2 - tanulo2.fogyasztas(1500);
 			penz3 = penz3 - tanulo3.fogyasztas(1700);
@@ -81,15 +83,15 @@ public class Vasarlas {
 			}
 			
 			
-			 
-			 System.out.println("tanuló1 pénze az " +(i+1)+ " . körben " + penz1);
-			 System.out.println("tanuló2 pénze az " +(i+1)+ " . körben " + penz2);
-			 System.out.println("tanuló3 pénze az " +(i+1)+ " . körben " + penz3);
-			 System.out.println("tanuló4 pénze az " +(i+1)+ " . körben " + penz4);
-			 System.out.println("tanuló5 pénze az " +(i+1)+ " . körben " + penz5);
+			 String korben = ". körben ";
+			 System.out.println("tanuló1 pénze az " +(i+1)+ korben + penz1);
+			 System.out.println("tanuló2 pénze az " +(i+1)+ korben + penz2);
+			 System.out.println("tanuló3 pénze az " +(i+1)+ korben + penz3);
+			 System.out.println("tanuló4 pénze az " +(i+1)+ korben + penz4);
+			 System.out.println("tanuló5 pénze az " +(i+1)+ korben + penz5);
 			
 			 
-			System.out.println("összpénz az " + (i+1) +". körben: "+ sum+ "FT");
+			System.out.println("összpénz az " + (i+1) +korben+ sum+ "FT");
 			System.out.println("A maradék pénz " +(i+1)+ ". köri átlaga: "+  atlag);
 			
 				

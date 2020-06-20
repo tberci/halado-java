@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:text="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>Új hallgató felvétele</title>
+</head>
+<body>
+<h1>Új hallgato</h1><br>
+<form action="/addStudent" method="post" th:object="${studentDto}">
+
+	<table>
+                <tr>
+                    <td>Név:</td>
+                    <td><input type="text" th:name = "name" th:field="*{name}" required /></td>  
+                </tr>
+                <tr>
+                    <td>Neptun:</td>
+                    <td><input type="text" th:field="*{neptun}" required/></td>
+                    <td th:if="${#fields.hasErrors('neptun')}" th:errors="*{neptun}">Neptun error</td>
+                    <td> 
+                </tr>
+                <tr>
+                	<td>Tanár:</td>
+                	<td>
+                	<select th:field="*{teacher}">
+						<option th:each="teach : ${teachers}" th:value="${teach.id}" th:text="${teach.name}" ></option>
+					</select>
+                </tr>
+                <tr>
+                	<td>
+                	<input type="submit" value="Új hallgató"/>
+                </tr>
+            </table>
+	
+	
+</form>
+<a href="/">Vissza</a><br/>
+</body>
+</html>

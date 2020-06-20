@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:text="http://www.w3.org/1999/xhtml">
+<head lang="en">
+<meta charset="UTF-8">
+<style>
+ 
+   
+.table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table td, .table th {
+  border: 1px solid #ddd;
+
+}
+
+.table tr:nth-child(even){background-color: #f2f2f2;}
+
+.table tr:hover {background-color: #ddd;}
+
+.table th {
+
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+    </style>
+     
+</head>
+
+
+
+<body >
+<h1>Admin Dashboard</h1>
+ 
+ <form th:action="@{/addSemester}">
+  				 <button type="submit">Új félév</button>
+</form>
+ 
+<table class="table" border="1" style="width:300px">
+
+    
+    	 <tr>
+         	<th>Semeter id</th>
+         	<th>Semeter nev</th>
+         </tr>
+         
+    	<tr th:each="sem: ${semesters}" >
+    			 <td><span th:text="${sem.id}"> nev </span></td>
+    			 <td><span th:text="${sem.name}"> nev </span></td>
+    			<td>
+    		<form th:action="@{/deleteSemester/{id}(id=${sem.id})}"  method="post">
+  				 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.DTO.Semester.Status).INACTIVE}">Remove semester</button>
+			</form>
+			<form action="#" th:action="@{/activate/{id}(id=${sem.id})}" th:object="${dto}"   method="post">
+   			 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.DTO.Semester.Status).INACTIVE}">Activate semester</button> 
+   			 
+			</form>
+			<form action="#" th:action="@{/deactivate/{id}(id=${sem.id})}" th:object="${dto}" method="post">
+   			 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.DTO.Semester.Status).ACTIVE}">deactivate semester</button> 
+   			 
+			</form>
+			<form th:action="@{/finish/{id}(id=${sem.id})}" th:object="${dto}" method="post" >
+  					<button  type="submit" th:if="${ sem.status == T(com.adminDashboard.DTO.Semester.Status).INACTIVE}" >Finish semester</button>
+			</form>
+			<td>
+  			<form th:action="@{/addStudent}">
+  					<button  type="submit"    th:if="${ sem.status == T(com.adminDashboard.DTO.Semester.Status).INACTIVE}" >Add student</button>
+			</form><form th:action="@{/addMilestone}" >
+  					<button  type="submit"  th:if="${ sem.status == T(com.adminDashboard.DTO.Semester.Status).INACTIVE}">Add milestone</button>
+			</form><form th:action="@{/addTeacher}" >
+  					<button  type="submit"  th:if="${sem.status == T(com.adminDashboard.DTO.Semester.Status).INACTIVE}">Add teacher</button>
+			</form>
+			
+			</td>
+			<td>
+			<span th:text="${sem.status}"> status </span>
+			
+		<td>
+		
+		 <h2>Mérföldkövek</h2>
+		<table border="1" style="width:300px">
+		 <tr>
+         	<th>Mérföldkő id</th>
+         	<th>Mérföldkő neve</th>
+         </tr>
+		<tr th:each="stone: ${sem.milestones}">
+			<td><span th:text="${stone.id}"> név </span></td>
+			<td><span th:text="${stone.name}"> név </span></td>
+		</tr>
+		</table>
+	  <h2>Tanárok</h2>
+		<table border="1" style="width:300px">
+		 <tr>
+         	<th>Tanár id</th>
+         	<th>Tanár neve</th>
+         	<th>Tanár azonosító</th>
+         </tr>
+		<tr th:each="teacher: ${sem.teachers}">
+			<td><span th:text="${teacher.id}">  </span></td>
+            <td><span th:text="${teacher.name}">  </span></td>
+            <td><span th:text="${teacher.neptun}">  </span></td>
+            <td>
+            <h2>Hallgatók</h2>
+            	<table border="1" style="width:300px">
+            		 <tr>
+         				<th>Hallgató id</th>
+         				<th>Hallgató neve</th>
+         			</tr>
+            		 <tr th:each="student: ${teacher.studentList}">
+            		 <td><span th:text="${student.id}"> név </span></td>
+            		 <td><span th:text="${student.name}"> név </span></td>
+            		 <td><span th:text="${student.neptun}"> név </span></td>
+            		 </tr>
+            	</table>
+            </td>
+		</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+
+
+</body>
+</html>

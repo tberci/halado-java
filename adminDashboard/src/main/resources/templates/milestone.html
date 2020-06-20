@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:text="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>New Milestone</title>
+</head>
+<body>
+<form action="/addMilestone" method="post" th:object="${milestoneDto}">
+	
+	<table>
+                <tr>
+                    <td>Megnevezés:</td>
+                    <td><input type="text" th:name = "name" th:field="*{name}" required /></td>  
+                </tr>
+                <tr>
+                    <td>Dátum:</td>
+                    <td><input type="text" th:field="*{date}" required/></td>
+                    <td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date error</td>
+                    <td> 
+                </tr>
+                <tr>
+                	<td>Megjegyzés:</td>
+                	<td><input type="text" th:name = "notice" th:field="*{notice}" required /></td>
+                </tr>
+                <tr>
+                	<td>
+                	<select th:field="*{semester}">
+						<option th:each="sem : ${inactives}" th:value="${sem.id}" th:text="${sem.name}"></option>
+					</select>
+                </tr>
+                <tr>
+                	<td>
+                	<input type="submit" value="Új mérföldkő"/>
+                </tr>
+            </table>
+</form>
+
+<a href="/">Vissza</a><br/>
+</body>
+</html>

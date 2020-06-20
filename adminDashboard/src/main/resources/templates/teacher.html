@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:text="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>Add teacher</title>
+</head>
+<body>
+<form action="/addTeacher"  th:object="${teacherDto}" method="post">
+	
+	<table>
+                <tr>
+                    <td>Név:</td>
+                    <td><input type="text" th:name = "name" th:field="*{name}" required /></td>  
+                </tr>
+                <tr>
+                    <td>Neptun:</td>
+                    <td><input type="text" th:field="*{neptun}" required/></td>
+                    <td th:if="${#fields.hasErrors('neptun')}" th:errors="*{neptun}">Neptun error</td>
+                    <td> 
+                    
+                </tr>
+               
+            </table>
+            
+<select th:field="*{semester}">
+		
+				<option th:each="sem : ${inactives}" th:value="${sem.id}" th:text="${sem.name}" ></option>
+</select>
+
+	<input type="submit" value="New Teacher"/>
+</form>
+
+<a href="/">Vissza</a><br/>
+</body>
+</html>

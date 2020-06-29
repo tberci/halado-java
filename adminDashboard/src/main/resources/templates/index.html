@@ -52,26 +52,26 @@
     			 <td><span th:text="${sem.name}"> nev </span></td>
     			<td>
     		<form th:action="@{/deleteSemester/{id}(id=${sem.id})}"  method="post">
-  				 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.DTO.Semester.Status).INACTIVE}">Remove semester</button>
+  				 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.Entity.Semester.Status).INACTIVE}">Remove semester</button>
 			</form>
 			<form action="#" th:action="@{/activate/{id}(id=${sem.id})}" th:object="${dto}"   method="post">
-   			 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.DTO.Semester.Status).INACTIVE}">Activate semester</button> 
+   			 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.Entity.Semester.Status).INACTIVE}">Activate semester</button> 
    			 
 			</form>
 			<form action="#" th:action="@{/deactivate/{id}(id=${sem.id})}" th:object="${dto}" method="post">
-   			 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.DTO.Semester.Status).ACTIVE}">deactivate semester</button> 
+   			 <button type="submit" th:if="${ sem.status ==T(com.adminDashboard.Entity.Semester.Status).ACTIVE}">deactivate semester</button> 
    			 
 			</form>
 			<form th:action="@{/finish/{id}(id=${sem.id})}" th:object="${dto}" method="post" >
-  					<button  type="submit" th:if="${ sem.status == T(com.adminDashboard.DTO.Semester.Status).INACTIVE}" >Finish semester</button>
+  					<button  type="submit" th:if="${ sem.status == T(com.adminDashboard.Entity.Semester.Status).INACTIVE}" >Finish semester</button>
 			</form>
 			<td>
   			<form th:action="@{/addStudent}">
-  					<button  type="submit"    th:if="${ sem.status == T(com.adminDashboard.DTO.Semester.Status).INACTIVE}" >Add student</button>
+  					<button  type="submit"    th:if="${ sem.status == T(com.adminDashboard.Entity.Semester.Status).INACTIVE}" >Add student</button>
 			</form><form th:action="@{/addMilestone}" >
-  					<button  type="submit"  th:if="${ sem.status == T(com.adminDashboard.DTO.Semester.Status).INACTIVE}">Add milestone</button>
+  					<button  type="submit"  th:if="${ sem.status == T(com.adminDashboard.Entity.Semester.Status).INACTIVE}">Add milestone</button>
 			</form><form th:action="@{/addTeacher}" >
-  					<button  type="submit"  th:if="${sem.status == T(com.adminDashboard.DTO.Semester.Status).INACTIVE}">Add teacher</button>
+  					<button  type="submit"  th:if="${sem.status == T(com.adminDashboard.Entity.Semester.Status).INACTIVE}">Add teacher</button>
 			</form>
 			
 			</td>

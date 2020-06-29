@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.adminDashboard.DTO.Semester;
-import com.adminDashboard.DTO.Semester.Status;
+import com.adminDashboard.Entity.Semester;
+import com.adminDashboard.Entity.Semester.Status;
 
 @Repository
 public interface SemesterRepository  extends CrudRepository<Semester, Integer>{

@@ -11,11 +11,11 @@ import com.adminDashboard.DAO.MilestoneRepository;
 import com.adminDashboard.DAO.SemesterRepository;
 import com.adminDashboard.DAO.StudentRepository;
 import com.adminDashboard.DAO.TeacherRepository;
-import com.adminDashboard.DTO.Milestone;
-import com.adminDashboard.DTO.Semester;
-import com.adminDashboard.DTO.Student;
-import com.adminDashboard.DTO.Teacher;
-import com.adminDashboard.DTO.Semester.Status;
+import com.adminDashboard.Entity.Milestone;
+import com.adminDashboard.Entity.Semester;
+import com.adminDashboard.Entity.Student;
+import com.adminDashboard.Entity.Teacher;
+import com.adminDashboard.Entity.Semester.Status;
 
 
 @Service

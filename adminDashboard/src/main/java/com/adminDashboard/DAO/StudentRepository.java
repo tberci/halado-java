@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.adminDashboard.DTO.Student;
+import com.adminDashboard.Entity.Student;
 
 public interface StudentRepository extends CrudRepository<Student, Integer> {
 

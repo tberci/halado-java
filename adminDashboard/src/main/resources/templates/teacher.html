@@ -22,10 +22,9 @@
                
             </table>
             
-<select th:field="*{semester}">
-		
+	<select th:field="*{semester}">
 				<option th:each="sem : ${inactives}" th:value="${sem.id}" th:text="${sem.name}" ></option>
-</select>
+	</select>
 
 	<input type="submit" value="New Teacher"/>
 </form>

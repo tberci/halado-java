@@ -17,11 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.adminDashboard.Controller.MainController;
 import com.adminDashboard.DAO.TeacherRepository;
-import com.adminDashboard.DTO.Milestone;
-import com.adminDashboard.DTO.Semester;
-import com.adminDashboard.DTO.Semester.Status;
-import com.adminDashboard.DTO.Student;
-import com.adminDashboard.DTO.Teacher;
+import com.adminDashboard.Entity.Milestone;
+import com.adminDashboard.Entity.Semester;
+import com.adminDashboard.Entity.Student;
+import com.adminDashboard.Entity.Teacher;
+import com.adminDashboard.Entity.Semester.Status;
 import com.adminDashboard.Service.DaoService;
 
 @RunWith(SpringRunner.class)

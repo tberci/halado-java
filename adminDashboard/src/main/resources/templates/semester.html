@@ -6,8 +6,8 @@
 </head>
 <body>
 
-<form action="/addSemester" method="post">
-	Megnevezés<input type="text" name="name"  required><br>
+<form action="/addSemester" method="post" th:object="${semesterDto}">
+	Megnevezés<input type="text"  th:field="*{name}"  required><br>
 	<input type="submit" value="Uj felev" />
 	
 </form>

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.adminDashboard.DTO.Teacher;
+import com.adminDashboard.Entity.Teacher;
 
 @Repository
 public interface TeacherRepository extends CrudRepository<Teacher, Integer>{

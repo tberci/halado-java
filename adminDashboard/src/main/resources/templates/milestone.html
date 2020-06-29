@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                     <td>Dátum:</td>
-                    <td><input type="text" th:field="*{date}" required/></td>
+                    <td><input type="date" th:field="*{date}" required/></td>
                     <td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date error</td>
                     <td> 
                 </tr>

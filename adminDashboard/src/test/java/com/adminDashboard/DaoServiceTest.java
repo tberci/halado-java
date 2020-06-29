@@ -2,62 +2,66 @@ package com.adminDashboard;
 
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import org.junit.runner.RunWith;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import static org.mockito.Mockito.verify;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import static org.mockito.Mockito.times;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+
 import com.adminDashboard.DAO.MilestoneRepository;
 import com.adminDashboard.DAO.SemesterRepository;
 import com.adminDashboard.DAO.StudentRepository;
 import com.adminDashboard.DAO.TeacherRepository;
-import com.adminDashboard.DTO.Milestone;
-import com.adminDashboard.DTO.Semester;
-import com.adminDashboard.DTO.Semester.Status;
-import com.adminDashboard.DTO.Student;
-import com.adminDashboard.DTO.Teacher;
+import com.adminDashboard.Entity.Milestone;
+import com.adminDashboard.Entity.Semester;
+import com.adminDashboard.Entity.Student;
+import com.adminDashboard.Entity.Teacher;
+import com.adminDashboard.Entity.Semester.Status;
 import com.adminDashboard.Service.DaoService;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class DaoServiceTest {
  
-	@Autowired
+	@InjectMocks
 	private DaoService service;
 	
-    @MockBean
+    @Mock
     private SemesterRepository semesterRepository;
     
-    @MockBean
+    @Mock
     private MilestoneRepository milestoneRepository;
     
-    @MockBean
+    @Mock
     private TeacherRepository teacherRepository;
     
-    @MockBean
+    @Mock
     private StudentRepository studentRepository;
     
 
     @Test
     public void saveSemesterTest() {
+    	
         // given
         Semester semester = new Semester();
-        semester.setId(1);
-        semester.setName("testsemester");
         
-        when(semesterRepository.save(semester)).thenReturn(semester);
+        //when
+        semesterRepository.save(semester);
+        when(semesterRepository.save(Mockito.any(Semester.class))).thenReturn(semester);
         
-        assertThat(service.saveSemester(semester)).isEqualTo(semester);
+        //then
+        verify(semesterRepository, times(1)).save(semester);
+        assertEquals(semester, service.saveSemester(semester) );
     }
     
     @Test
@@ -67,22 +71,28 @@ public class DaoServiceTest {
         milestone.setId(1);
         milestone.setName("kotest");
         
-        
+        //when
+        milestoneRepository.save(milestone);
         when(milestoneRepository.save(milestone)).thenReturn(milestone);
         
+        //then
+        verify( milestoneRepository, times(1)).save(milestone);
         assertThat(service.saveMilestone(milestone)).isEqualTo(milestone);
     }
     
     @Test
     public void saveTeacherTest() {
         // given
-       Teacher teacher = new Teacher();
+    	Teacher teacher = new Teacher();
         teacher.setId(1);
         teacher.setName("testteacher");
         
-        
+        //when
+        teacherRepository.save(teacher);
         when(teacherRepository.save(teacher)).thenReturn(teacher);
         
+        //then
+        verify(teacherRepository, times(1)).save(teacher);
         assertThat(service.saveTeacher(teacher)).isEqualTo(teacher);
     }
     
@@ -93,9 +103,12 @@ public class DaoServiceTest {
         student.setId(1);
         student.setName("teststudent");
         
-        
+        //when
+        studentRepository.save(student);
         when(studentRepository.save(student)).thenReturn(student);
         
+        //then
+        verify(studentRepository, times(1)).save(student);
         assertThat(service.saveStudent(student)).isEqualTo(student);
     }
     
@@ -114,8 +127,12 @@ public class DaoServiceTest {
         semesterList.add(semester);
         semesterList.add(semester2);
         
+        //when
+        semesterRepository.findAll();
         when(semesterRepository.findAll()).thenReturn(semesterList);
         
+        //then
+        verify(semesterRepository, times(1)).findAll();
         assertThat(service.listSemesters()).isEqualTo(semesterList);
     }
     
@@ -134,8 +151,12 @@ public class DaoServiceTest {
         milestoneList.add(milestone);
         milestoneList.add(milestone2);
         
+        //when
+        milestoneRepository.findAll();
         when(milestoneRepository.findAll()).thenReturn(milestoneList);
         
+        //then
+        verify(milestoneRepository, times(1)).findAll();
         assertThat(service.listMilestones()).isEqualTo(milestoneList);
     }
     
@@ -156,8 +177,11 @@ public class DaoServiceTest {
         teacherList.add(teacher);
         teacherList.add(teacher2);
         
+        
+        teacherRepository.findAll();
         when(teacherRepository.findAll()).thenReturn(teacherList);
         
+        verify(teacherRepository, times(1)).findAll();
         assertThat(service.listTeachers()).isEqualTo(teacherList);
     }
     
@@ -177,8 +201,12 @@ public class DaoServiceTest {
         studentList.add(student);
         studentList.add(student2);
         
+        //when
+        studentRepository.findAll();
         when(studentRepository.findAll()).thenReturn(studentList);
         
+        //then
+        verify(studentRepository, times(1)).findAll();
         assertThat(service.listStudents()).isEqualTo(studentList);
     }
     
@@ -189,9 +217,13 @@ public class DaoServiceTest {
         semester.setId(1);
         semester.setName("testsemester");
         
+        //when
         Optional<Semester> semesterOptional = service.findById(1);
         when(semesterRepository.findById(1)).thenReturn(semesterOptional);
         
+        
+        //then
+        verify(semesterRepository, times(1)).findById(1);
         assertThat(service.findById(1)).isEqualTo(semesterOptional);
     }
     
@@ -212,29 +244,27 @@ public class DaoServiceTest {
         semesterList.add(semester);
         semesterList.add(semester2);
         
-        
+        //when
+        semesterRepository.findByStatus(Status.INACTIVE);
         when(semesterRepository.findByStatus(Status.INACTIVE)).thenReturn(semesterList);
         
+        //then
+        verify(semesterRepository, times(1)).findByStatus(Status.INACTIVE);
         assertThat(service.findAllInactive()).isEqualTo(semesterList);
     }
     
     
     @Test
     public void removeSemesterByIdTest() {
+    	
       // given
-    	Semester semester = new Semester();
-        semester.setId(1);
-        semester.setName("testsemester");
-        
-        Optional<Semester> semesterOptional = service.findById(1);
-        when(semesterRepository.findById(1)).thenReturn(semesterOptional);
-        
-        service.removeSemester(semester.getId());
-        
-        verify(semesterRepository,times(1)).deleteById(semester.getId());
+    	int id = 10;
+    	
+        //when 
+    	service.removeSemester(id);
+    	
+        //then
+        verify(semesterRepository,times(1)).deleteById((id));
     }
     
-    
-
-   
 }

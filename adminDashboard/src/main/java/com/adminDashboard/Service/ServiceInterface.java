@@ -3,10 +3,10 @@ package com.adminDashboard.Service;
 import java.util.List;
 import java.util.Optional;
 
-import com.adminDashboard.DTO.Milestone;
-import com.adminDashboard.DTO.Semester;
-import com.adminDashboard.DTO.Student;
-import com.adminDashboard.DTO.Teacher;
+import com.adminDashboard.Entity.Milestone;
+import com.adminDashboard.Entity.Semester;
+import com.adminDashboard.Entity.Student;
+import com.adminDashboard.Entity.Teacher;
 
 public interface ServiceInterface {
 	

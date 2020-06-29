@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.adminDashboard.DTO.Milestone;
-import com.adminDashboard.DTO.Semester;
-import com.adminDashboard.DTO.Semester.Status;
-import com.adminDashboard.DTO.Student;
-import com.adminDashboard.DTO.Teacher;
-
+import com.adminDashboard.DTO.MilestoneDto;
+import com.adminDashboard.DTO.SemesterDto;
+import com.adminDashboard.DTO.StudentDto;
+import com.adminDashboard.DTO.TeacherDto;
+import com.adminDashboard.Entity.Milestone;
+import com.adminDashboard.Entity.Semester;
+import com.adminDashboard.Entity.Student;
+import com.adminDashboard.Entity.Teacher;
+import com.adminDashboard.Entity.Semester.Status;
 import com.adminDashboard.Service.DaoService;
-
-
-
 
 
 @Controller
@@ -46,7 +46,7 @@ public class MainController {
 		mav.addObject("milestones", service.listMilestones());
 		mav.addObject("students", service.listStudents());
 		
-		mav.addObject("dto", new Semester());
+		mav.addObject("semesterDto", new SemesterDto());
 	
 		return mav;
 	}
@@ -56,7 +56,7 @@ public class MainController {
 	public ModelAndView getAddSemester()  {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("semester.html");
-		
+		mav.addObject("semesterDto", new SemesterDto());
 		return mav;
 	}
 	
@@ -82,7 +82,8 @@ public class MainController {
 		mav.addObject("semesters", service.listSemesters());
 		Iterable<Semester> semesters = service.findAllInactive();
 		mav.addObject("inactives",semesters);
-		mav.addObject("milestoneDto", new Milestone());
+		mav.addObject("milestoneDto", new MilestoneDto());
+		
 		return mav;
 	}
 	
@@ -115,7 +116,7 @@ public class MainController {
 		mav.addObject("semesters", service.listSemesters());
 		 
 		mav.addObject("inactives", service.findAllInactive());
-		mav.addObject("teacherDto", new Teacher());
+		mav.addObject("teacherDto", new TeacherDto());
 		return mav;
 	}
 	
@@ -143,14 +144,10 @@ public class MainController {
 	
 	
 	@PostMapping(value="/deleteSemester/{id}")
-	public ModelAndView deleteSemester(@PathVariable int id,@Valid Semester semester, BindingResult bindingresult)  {
+	public ModelAndView deleteSemester(@PathVariable int id)  {
 		
 		ModelAndView mav = new ModelAndView();
-		if (bindingresult.hasErrors()) {
-			mav.setViewName("error");
-			mav.addObject("error","error");
-			return mav;
-		   }
+		
 		Optional<Semester> semesterOptional = service.findById(id);
 		
 		if(semesterOptional.isEmpty()) {
@@ -159,7 +156,7 @@ public class MainController {
 			
 		}else {
 			
-			 semester = semesterOptional.get();
+			Semester semester = semesterOptional.get();
 			if(semester.getTeachers().isEmpty()) {
 				mav.setViewName("redirect:/");
 				service.removeSemester(id);
@@ -178,7 +175,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("student.html");
 		mav.addObject("teachers", service.listTeachers());
-		mav.addObject("studentDto", new Student());
+		mav.addObject("studentDto", new StudentDto());
 		return mav;
 	}
 	
@@ -189,7 +186,7 @@ public class MainController {
 		if (bindingresult.hasErrors()) {
 			mav.setViewName("student");
 			mav.addObject("teachers", service.listTeachers());
-			mav.addObject("studentDto", student);
+			
 			return mav;
 		   }
 		
@@ -213,41 +210,88 @@ public class MainController {
 	
 
 	@PostMapping(value="/activate/{id}")
-	public ModelAndView activate(@PathVariable("id") int id ,@Valid Semester semester)  {
+	public ModelAndView activate(@PathVariable("id") int id )  {
 		ModelAndView mav = new ModelAndView();
 		
-		
-		
 		mav.setViewName("redirect:/");
-		semester.setStatus(Status.ACTIVE);
 		
+		Optional<Semester> semesterOptional = service.findById(id);
 		
-		
-		service.saveSemester(semester);
+		if(semesterOptional.isEmpty()) {
+			
+			mav.setViewName("error.html");
+			
+		}else {
+			
+			Semester semester = semesterOptional.get();
+			if(semester.getStatus() == Status.INACTIVE) {
+				mav.setViewName("redirect:/");
+				semester.setStatus(Status.ACTIVE);
+				service.saveSemester(semester);
+			}else {
+				mav.setViewName("error.html");
+			}
+			
+		}
 
 		return mav;
 	}
 	
 	@PostMapping(value="/deactivate/{id}")
-	public ModelAndView deactivate(@PathVariable("id") int id ,@Valid Semester semester )  {
+	public ModelAndView deactivate(@PathVariable("id") int id  )  {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("redirect:/");
-		semester.setStatus(Status.INACTIVE);
+		Optional<Semester> semesterOptional = service.findById(id);
 		
-		
-		service.saveSemester(semester);
+		if(semesterOptional.isEmpty()) {
+			
+			mav.setViewName("error.html");
+			
+		}else {
+			
+			Semester semester = semesterOptional.get();
+			
+			if(semester.getStatus() == Status.ACTIVE) {
+				mav.setViewName("redirect:/");
+				semester.setStatus(Status.INACTIVE);
+				service.saveSemester(semester);
+			}else {
+				mav.setViewName("error.html");
+			}
+			
+		}
 
 		return mav;
 	}
 	
 	@PostMapping(value="/finish/{id}")
-	public ModelAndView finishSemester(@PathVariable("id") int id, @Valid Semester semester  )  {
+	public ModelAndView finishSemester(@PathVariable("id") int id  )  {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("redirect:/");
-		semester.setStatus(Status.FINISHED);
-		service.saveSemester(semester);
+		
+		Optional<Semester> semesterOptional = service.findById(id);
+		
+		if(semesterOptional.isEmpty()) {
+			
+			mav.setViewName("error.html");
+			
+		}else {
+			
+			Semester semester = semesterOptional.get();
+			if(semester.getStatus() == Status.INACTIVE) {
+				mav.setViewName("redirect:/");
+				semester.setStatus(Status.FINISHED);
+				service.saveSemester(semester);
+				
+			}else {
+				mav.setViewName("error.html");
+			}
+			
+		}
+		
+	
 		return mav;
 	}
 	
